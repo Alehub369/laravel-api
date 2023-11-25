@@ -11,12 +11,24 @@ use Illuminate\Support\Facades\Route;
 }); */
 
 
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('categories',             [CategoryController::class, 'index']);
+    Route::get('categories/{category}',  [CategoryController::class, 'show']);
 
-Route::get('categories',             [CategoryController::class, 'index']);
-Route::get('categories/{category}',  [CategoryController::class, 'show']);
+    Route::apiResource('recipes', RecipeController::class);
 
-// Codigo largo
+    Route::get('tags',                   [TagController::class, 'index']);
+    Route::get('tags/{tag}',             [TagController::class, 'show']);
+});
+    
 
+
+
+
+
+
+
+// Codigo largo que resume apiResource solo para saber
 /* 
 
 Route::get('recipes',                [RecipeController::class, 'index']);
@@ -27,8 +39,3 @@ Route::delete('recipes/{recipe}',       [RecipeController::class, 'destroy']);
  */
 
 // Codigo corto mismo resultado
-
-Route::apiResource('recipes', RecipeController::class);
-
-Route::get('tags',                   [TagController::class, 'index']);
-Route::get('tags/{tag}',             [TagController::class, 'show']);
