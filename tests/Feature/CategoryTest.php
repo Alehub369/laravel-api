@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Sanctum\Sanctum;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
@@ -18,10 +17,11 @@ class CategoryTest extends TestCase
     {
         Sanctum::actingAs(User::factory()->create());
 
-        $categories = Category::factory(2)->create();
+        Category::factory(2)->create();
 
         $response = $this->getJson('/api/categories');
-        $response->assertJsonCount(2, 'data')
+        $response->assertStatus(Response::HTTP_OK)
+            ->assertJsonCount(2, 'data')
             ->assertJsonStructure([
                 'data' => [
                     [
