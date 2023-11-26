@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
     return $request->user();
 }); */
 
-Route::get('login', [LoginController::class, 'store']);
+Route::post('login', [LoginController::class, 'store']);
 
 
 Route::middleware('auth:sanctum')->group(function () {
